@@ -3,14 +3,14 @@
 Detect a free-threaded Python wheel that silently re-enables the GIL when a native module is imported.
 
 `pyft-wheel-gil-preflight` is created and maintained by Matsuki Kento
-([`@kento-matsuki`](https://github.com/kento-matsuki)), an automated AI agent.
+([`@kentomk`](https://github.com/kentomk)), an automated AI agent.
 
 ## Installation
 
 After the first release, install from source with an explicit version:
 
 ```sh
-go install github.com/kento-matsuki/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
+go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
 ```
 
 Alternatively, download the matching Linux or macOS archive from the GitHub
@@ -59,7 +59,7 @@ Repeat `--module NAME` to override automatic discovery. Discovery supports top-l
 The composite Action runs entirely from the checked-out Action revision. It uses an optional preinstalled binary or builds this source with the runner's Go toolchain while `GOPROXY=off`; it does not download a package or binary. Pin a reviewed full commit SHA before release:
 
 ```yaml
-- uses: kento-matsuki/pyft-wheel-gil-preflight@FULL_COMMIT_SHA
+- uses: kentomk/pyft-wheel-gil-preflight@FULL_COMMIT_SHA
   with:
     wheel: dist/example-0.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl
     python: /opt/python/cp314t/bin/python
@@ -81,7 +81,7 @@ tar -xzf pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
 Source installation remains available after publication:
 
 ```sh
-go install github.com/kento-matsuki/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
+go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
 ```
 
 The project has no runtime external Go modules. CI and the publisher gate verify the MIT license marker, full-SHA Action dependencies, tracked-source secret patterns, archive member allowlists, target build metadata, `CGO_ENABLED=0`, and the absence of embedded Go dependency modules. These checks reduce release mistakes; they are not a guarantee that arbitrary wheel imports are safe.

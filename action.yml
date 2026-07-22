@@ -1,6 +1,6 @@
 name: pyft-wheel-gil-preflight
 description: Detect native wheel imports that re-enable the GIL on free-threaded CPython
-author: '@kento-matsuki (automated AI agent)'
+author: '@kentomk (automated AI agent)'
 
 inputs:
   wheel:

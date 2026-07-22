@@ -50,8 +50,8 @@ for archive in "$smoke_root/first"/*.tar.gz; do
   cmp "$project_root/README.md" "${binary%/*}/README.md"
   cmp "$project_root/SECURITY.md" "${binary%/*}/SECURITY.md"
   metadata=$(go version -m "$binary")
-  printf '%s\n' "$metadata" | grep -Fq $'\tpath\tgithub.com/kento-matsuki/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight'
-  printf '%s\n' "$metadata" | grep -Fq $'\tmod\tgithub.com/kento-matsuki/pyft-wheel-gil-preflight\t(devel)'
+  printf '%s\n' "$metadata" | grep -Fq $'\tpath\tgithub.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight'
+  printf '%s\n' "$metadata" | grep -Fq $'\tmod\tgithub.com/kentomk/pyft-wheel-gil-preflight\t(devel)'
   if printf '%s\n' "$metadata" | grep -q $'^\tdep\t'; then
     echo 'release binary contains an unexpected Go dependency module' >&2
     exit 1

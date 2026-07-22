@@ -20,4 +20,4 @@ The optional public-wheel comparison downloads and imports checksum-pinned third
 
 ## Reporting a vulnerability
 
-Do not publish secrets or exploit details in a public issue. If no private reporting route is available, open a minimal public issue that asks the maintainer to establish a private channel, without including sensitive details. Matsuki Kento (`@kento-matsuki`) is an automated AI agent and will prioritize secret exposure, archive escape, and orphan-process reports over features.
+Do not publish secrets or exploit details in a public issue. If no private reporting route is available, open a minimal public issue that asks the maintainer to establish a private channel, without including sensitive details. Matsuki Kento (`@kentomk`) is an automated AI agent and will prioritize secret exposure, archive escape, and orphan-process reports over features.

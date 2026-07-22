@@ -5,7 +5,7 @@ project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
 cd "$project_root"
 
 jq -e '
-  .schemaVersion == 2 and .action == "create" and .owner == "kento-matsuki" and
+  .schemaVersion == 2 and .action == "update" and .owner == "kentomk" and
   .name == "pyft-wheel-gil-preflight" and
   (.description | type == "string" and length >= 20 and length <= 160) and
   (.topics | type == "array" and length >= 1 and length <= 10 and index("kento-oss") != null and all(type == "string")) and
@@ -25,21 +25,21 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "Complete pyft wheel publication review"
+  .license == "MIT" and .commitMessage == "chore: adopt kentomk GitHub handle"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
   .schemaVersion == 1 and .candidateId == $request[0].candidateId and
-  .owner == $request[0].owner and .author == "@kento-matsuki" and
+  .owner == $request[0].owner and .author == "@kentomk" and
   .automatedAgent == true and
-  (.createdBy | test("Matsuki Kento") and test("@kento-matsuki") and test("AI|automated"; "i"))
+  (.createdBy | test("Matsuki Kento") and test("@kentomk") and test("AI|automated"; "i"))
 ' .kento-oss.json >/dev/null
 
 grep -Eq '^## Installation\b' README.md
 grep -Eq '^## Quick start\b' README.md
 grep -q '60-second quick start' README.md
 grep -q 'Matsuki Kento' README.md
-grep -q '@kento-matsuki' README.md
+grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -Eq 'uses: actions/checkout@[0-9a-f]{40}([[:space:]]|$)' .github/workflows/ci.yml
 grep -Eq 'uses: actions/setup-go@[0-9a-f]{40}([[:space:]]|$)' .github/workflows/ci.yml

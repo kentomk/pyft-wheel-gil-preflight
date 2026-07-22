@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/kento-matsuki/pyft-wheel-gil-preflight/internal/checker"
+	"github.com/kentomk/pyft-wheel-gil-preflight/internal/checker"
 )
 
 func TestTextGoldenContracts(t *testing.T) {

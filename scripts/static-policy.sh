@@ -5,7 +5,7 @@ project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
 cd "$project_root"
 
 [[ $(sed -n '1p' LICENSE) == 'MIT License' ]]
-[[ $(GOTOOLCHAIN=local GOWORK=off GOPROXY=off GOSUMDB=off go list -mod=readonly -m all) == 'github.com/kento-matsuki/pyft-wheel-gil-preflight' ]]
+[[ $(GOTOOLCHAIN=local GOWORK=off GOPROXY=off GOSUMDB=off go list -mod=readonly -m all) == 'github.com/kentomk/pyft-wheel-gil-preflight' ]]
 [[ ! -e go.sum ]]
 [[ -z $(git ls-files '*.whl') ]]
 
