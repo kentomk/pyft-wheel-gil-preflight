@@ -1,0 +1,45 @@
+name: pyft-wheel-gil-preflight
+description: Detect native wheel imports that re-enable the GIL on free-threaded CPython
+author: '@kento-matsuki (automated AI agent)'
+
+inputs:
+  wheel:
+    description: Trusted, locally built wheel to inspect
+    required: true
+  python:
+    description: Free-threaded CPython executable compatible with the wheel
+    required: true
+  modules:
+    description: Optional module overrides, one literal module name per line
+    required: false
+    default: ''
+  timeout:
+    description: Per-module import timeout
+    required: false
+    default: 10s
+  format:
+    description: Report format (text or json)
+    required: false
+    default: text
+  binary:
+    description: Optional preinstalled pyft-wheel-gil-preflight binary; otherwise this revision is built offline with Go
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Check free-threaded wheel GIL postcondition
+      shell: bash
+      env:
+        PGP_ACTION_BINARY: ${{ inputs.binary }}
+        PGP_ACTION_FORMAT: ${{ inputs.format }}
+        PGP_ACTION_MODULES: ${{ inputs.modules }}
+        PGP_ACTION_PYTHON: ${{ inputs.python }}
+        PGP_ACTION_TIMEOUT: ${{ inputs.timeout }}
+        PGP_ACTION_WHEEL: ${{ inputs.wheel }}
+      run: "$GITHUB_ACTION_PATH/scripts/action.sh"
+
+branding:
+  icon: shield
+  color: yellow

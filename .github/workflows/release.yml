@@ -1,0 +1,53 @@
+name: Release assets
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tagName:
+        description: Existing release tag to build and repair
+        required: true
+        type: string
+  repository_dispatch:
+    types: [kento_release_repair]
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the requested release tag
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tagName || github.event.client_payload.tagName }}
+      - name: Set up Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version: '1.26.5'
+          cache: false
+      - name: Build reproducible release assets
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name || inputs.tagName || github.event.client_payload.tagName }}
+        run: |
+          set -euo pipefail
+          SOURCE_DATE_EPOCH="$(git show -s --format=%ct HEAD)"
+          export SOURCE_DATE_EPOCH
+          scripts/package-release.sh "$TAG_NAME" dist
+          (cd dist && sha256sum --check --strict SHA256SUMS)
+          scripts/static-policy.sh
+      - name: Upload exact release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name || inputs.tagName || github.event.client_payload.tagName }}
+        run: |
+          set -euo pipefail
+          gh release upload "$TAG_NAME" \
+            "dist/pyft-wheel-gil-preflight_${TAG_NAME}_linux_amd64.tar.gz" \
+            "dist/pyft-wheel-gil-preflight_${TAG_NAME}_linux_arm64.tar.gz" \
+            "dist/pyft-wheel-gil-preflight_${TAG_NAME}_darwin_amd64.tar.gz" \
+            "dist/pyft-wheel-gil-preflight_${TAG_NAME}_darwin_arm64.tar.gz" \
+            dist/SHA256SUMS \
+            --clobber

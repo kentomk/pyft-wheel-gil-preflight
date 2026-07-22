@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "action": "create",
+  "owner": "kento-matsuki",
+  "name": "pyft-wheel-gil-preflight",
+  "description": "Fail CI when a free-threaded Python wheel import silently re-enables the GIL.",
+  "topics": ["kento-oss", "python", "free-threading", "wheels", "ci"],
+  "candidateId": "20260720T012824Z-0915",
+  "targetUsers": "Maintainers who release C, C++, or Rust native extension wheels for free-threaded CPython 3.14 and later.",
+  "jobToBeDone": "Inspect every native module in a built wheel with a compatible free-threaded interpreter and fail before release if an import re-enables the GIL.",
+  "distributionPath": "Checksum-verified reproducible Linux and macOS archives, go install, and an offline source-built composite GitHub Action pinned by full commit SHA.",
+  "successMetric": "Within 30 days, one unrelated native-extension repository uses the checker to catch a real missing GIL declaration before release and shows the module or release fix.",
+  "reviewAfterDays": 1,
+  "opportunityScore": 79,
+  "demandEvidence": [
+    {"url": "https://github.com/LVivona/safelz4/issues/12", "kind": "maintainer-failure", "independenceKey": "safelz4 cp314t import re-enables GIL"},
+    {"url": "https://github.com/fastavro/fastavro/issues/873", "kind": "maintainer-failure", "independenceKey": "fastavro free-threaded module declaration gap"},
+    {"url": "https://github.com/huggingface/tokenizers/issues/1784", "kind": "user-failure", "independenceKey": "tokenizers free-threaded import warning context"},
+    {"url": "https://github.com/triton-lang/triton/issues/8491", "kind": "user-failure", "independenceKey": "Triton native module enables GIL on import"}
+  ],
+  "alternatives": [
+    {"name": "CPython 3.14 RuntimeWarning, sys._is_gil_enabled, and -W error", "url": "https://docs.python.org/3.14/howto/free-threading-extensions.html", "tested": true, "gap": "Detects a known module when manually wired into a test but does not enumerate and isolate every native module in a built wheel."},
+    {"name": "packaging 26.2 and cibuildwheel 4.1.0", "url": "https://cibuildwheel.pypa.io/en/stable/options/", "tested": true, "gap": "Accepted the cp314t tag and selected the free-threaded build while leaving the post-import GIL invariant to a custom test command."},
+    {"name": "pytest-freethreaded 0.1.0", "url": "https://pypi.org/project/pytest-freethreaded/0.1.0/", "tested": true, "gap": "Verified that the session started with the GIL disabled, then allowed the controlled bad extension import to warn and exit successfully."},
+    {"name": "auditwheel 6.7.0 and abi3audit 0.0.26", "url": "https://pypi.org/project/auditwheel/6.7.0/", "tested": true, "gap": "Accepted or skipped the controlled cp314t binary without enforcing the module GIL declaration or the post-import GIL state."}
+  ],
+  "duplicateSearch": {
+    "completed": true,
+    "summary": "Installed exact alternative versions and ran the same valid bad wheel; tag, build, binary audit, and ordinary test paths all remained false-green while this checker returned PGP001."
+  },
+  "differentiation": "An offline built-wheel preflight that deterministically enumerates native modules, imports each in a bounded fresh process, and enforces the post-import GIL state without becoming a general ABI or thread-safety scanner.",
+  "testCommand": "scripts/publisher-gate.sh",
+  "license": "MIT",
+  "commitMessage": "Complete pyft wheel publication review"
+}
