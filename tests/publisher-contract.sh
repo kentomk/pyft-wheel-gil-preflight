@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "chore: adopt kentomk GitHub handle"
+  .license == "MIT" and .commitMessage == "Document verified public install paths"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -41,6 +41,16 @@ grep -q '60-second quick start' README.md
 grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
+grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.0' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@98b6960783c9d0423a543c12de796275414b1e32' README.md
+if grep -q 'FULL_COMMIT_SHA' README.md; then
+  printf '%s\n' 'README still contains the Action SHA placeholder' >&2
+  exit 1
+fi
+if grep -q 'After the first release' README.md; then
+  printf '%s\n' 'README still describes the published project as unreleased' >&2
+  exit 1
+fi
 grep -Eq 'uses: actions/checkout@[0-9a-f]{40}([[:space:]]|$)' .github/workflows/ci.yml
 grep -Eq 'uses: actions/setup-go@[0-9a-f]{40}([[:space:]]|$)' .github/workflows/ci.yml
 if grep -Eq 'uses: actions/(checkout|setup-go)@v[0-9]' .github/workflows/*.yml action.yml; then

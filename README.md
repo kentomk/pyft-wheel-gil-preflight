@@ -7,15 +7,16 @@ Detect a free-threaded Python wheel that silently re-enables the GIL when a nati
 
 ## Installation
 
-After the first release, install from source with an explicit version:
+Install the published `v0.1.0` source release with Go 1.26 or later:
 
 ```sh
 go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
 ```
 
-Alternatively, download the matching Linux or macOS archive from the GitHub
-Release and verify it with `SHA256SUMS`. The checker has no runtime external Go
-modules and needs no registry account, service token, or runtime network access.
+Alternatively, download the matching Linux or macOS archive from the
+[`v0.1.0` release](https://github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.0)
+and verify it with `SHA256SUMS`. The checker has no runtime external Go modules
+and needs no registry account, service token, or runtime network access.
 
 ## Why
 
@@ -56,10 +57,10 @@ Repeat `--module NAME` to override automatic discovery. Discovery supports top-l
 
 ## GitHub Action
 
-The composite Action runs entirely from the checked-out Action revision. It uses an optional preinstalled binary or builds this source with the runner's Go toolchain while `GOPROXY=off`; it does not download a package or binary. Pin a reviewed full commit SHA before release:
+The composite Action runs entirely from the checked-out Action revision. It uses an optional preinstalled binary or builds this source with the runner's Go toolchain while `GOPROXY=off`; it does not download a package or binary. Pin the reviewed public-main commit that passed CI:
 
 ```yaml
-- uses: kentomk/pyft-wheel-gil-preflight@FULL_COMMIT_SHA
+- uses: kentomk/pyft-wheel-gil-preflight@98b6960783c9d0423a543c12de796275414b1e32 # v0.1.0 public main
   with:
     wheel: dist/example-0.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl
     python: /opt/python/cp314t/bin/python
@@ -78,7 +79,7 @@ tar -xzf pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
 ./pyft-wheel-gil-preflight_v0.1.0_linux_amd64/pyft-wheel-gil-preflight version
 ```
 
-Source installation remains available after publication:
+Source installation is also available:
 
 ```sh
 go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0

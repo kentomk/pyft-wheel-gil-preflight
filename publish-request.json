@@ -73,5 +73,5 @@
   "differentiation": "An offline built-wheel preflight that deterministically enumerates native modules, imports each in a bounded fresh process, and enforces the post-import GIL state without becoming a general ABI or thread-safety scanner.",
   "testCommand": "scripts/publisher-gate.sh",
   "license": "MIT",
-  "commitMessage": "chore: adopt kentomk GitHub handle"
+  "commitMessage": "Document verified public install paths"
 }
