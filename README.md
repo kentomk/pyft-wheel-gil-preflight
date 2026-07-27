@@ -15,8 +15,24 @@ go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-prefli
 
 Alternatively, download the matching Linux or macOS archive from the
 [`v0.1.0` release](https://github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.0)
-and verify it with `SHA256SUMS`. The checker has no runtime external Go modules
-and needs no registry account, service token, or runtime network access.
+along with `SHA256SUMS`. Verify only the archive you downloaded; checking the
+whole checksum file requires all four platform archives to be present.
+
+```sh
+archive=pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
+grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+tar -xzf "$archive"
+./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
+```
+
+On macOS, replace the verification command with:
+
+```sh
+grep "  ${archive}$" SHA256SUMS | shasum -a 256 --check -
+```
+
+The checker has no runtime external Go modules and needs no registry account,
+service token, or runtime network access.
 
 ## Why
 
@@ -74,10 +90,15 @@ The composite Action runs entirely from the checked-out Action revision. It uses
 Releases provide reproducible archives for Linux and macOS on amd64 and arm64. Each archive contains the versioned `pyft-wheel-gil-preflight` binary, `README.md`, `LICENSE`, and `SECURITY.md`; `SHA256SUMS` covers all four archives.
 
 ```sh
-sha256sum --check --strict SHA256SUMS
-tar -xzf pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
-./pyft-wheel-gil-preflight_v0.1.0_linux_amd64/pyft-wheel-gil-preflight version
+archive=pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
+grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+tar -xzf "$archive"
+./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
 ```
+
+Use `shasum -a 256 --check -` instead of `sha256sum --check --strict -` on
+macOS. Filtering the checksum manifest is intentional: it verifies one
+download without falsely requiring the other three platform archives.
 
 Source installation is also available:
 

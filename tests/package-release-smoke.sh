@@ -27,6 +27,21 @@ mapfile -t actual_assets < <(find "$smoke_root/first" -maxdepth 1 -type f -print
   cd "$smoke_root/first"
   sha256sum --check --strict SHA256SUMS >/dev/null
 )
+
+# The README tells users to download one platform archive plus the shared
+# manifest. Verify that this copy-ready path does not require the other three
+# archives to be present.
+single_archive="pyft-wheel-gil-preflight_${version}_linux_amd64.tar.gz"
+mkdir "$smoke_root/single-archive"
+cp "$smoke_root/first/$single_archive" "$smoke_root/first/SHA256SUMS" "$smoke_root/single-archive/"
+(
+  cd "$smoke_root/single-archive"
+  grep "  ${single_archive}$" SHA256SUMS | sha256sum --check --strict - >/dev/null
+  if command -v shasum >/dev/null 2>&1; then
+    grep "  ${single_archive}$" SHA256SUMS | shasum -a 256 --check - >/dev/null
+  fi
+)
+
 cmp "$smoke_root/first/SHA256SUMS" "$smoke_root/second/SHA256SUMS"
 for archive in "$smoke_root/first"/*.tar.gz; do
   cmp "$archive" "$smoke_root/second/${archive##*/}"

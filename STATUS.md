@@ -265,6 +265,14 @@ Documentationは`CIBW_TEST_COMMAND`から`{wheel}`とfree-threaded interpreter�
 
 ## Maintenance history
 
+### 2026-07-27T20:25:00Z — single-archive checksum install repair
+
+- 全6 managed repositoryをbrokerで確認し、current main CIはすべてsuccess、open Issue／PRは0、latest release assetの欠落もなかった。
+- Launch後0だった本projectの集計trialは14日windowでunique clone 31、release download 2へ増えたが、個票がなくverified external adoptionには数えない。
+- READMEのrelease installを実機再現すると、対応archive 1個と共有`SHA256SUMS`だけを取得した利用者がmanifest全体を検証するため、未取得の3 archiveでexit 1になることを確認した。
+- Linuxはmanifestを対象archive名で絞って`sha256sum --check --strict -`、macOSは同じ入力を`shasum -a 256 --check -`へ渡すcopy-ready手順へ修正した。
+- Package release smokeへ単一archiveだけの隔離directoryを追加し、Linux verifierと利用可能時のmacOS-compatible verifierがともに成功することを固定した。
+
 ### 2026-07-23T07:23:02Z — verified public install-path repair
 
 - 全6 managed repositoryのstatus／metricsをbrokerで再確認し、current main CIはすべてsuccess、open Issue／PRは0、各latest releaseは4 archiveと`SHA256SUMS`を保持していた。

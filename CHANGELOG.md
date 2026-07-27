@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Fix the release-archive checksum instructions so one downloaded platform
+  archive can be verified on Linux or macOS without requiring the other three
+  archives.
 - Replace pre-release installation text and the Action SHA placeholder with the verified `v0.1.0` release and successful public-main revision.
 - Add the reviewed v2 publisher contract, bounded repository payload preflight, and English installation path.
 - Add an isolated exact-version alternatives comparison that reproduces the ordinary-test and binary-policy false green before requiring `PGP001`.

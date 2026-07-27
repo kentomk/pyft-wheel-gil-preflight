@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "Document verified public install paths"
+  .license == "MIT" and .commitMessage == "docs: fix single-archive checksum verification"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
