@@ -7,19 +7,19 @@ Detect a free-threaded Python wheel that silently re-enables the GIL when a nati
 
 ## Installation
 
-Install the published `v0.1.0` source release with Go 1.26 or later:
+Install the published `v0.1.2` source release with Go 1.26 or later:
 
 ```sh
-go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
+go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.2
 ```
 
 Alternatively, download the matching Linux or macOS archive from the
-[`v0.1.0` release](https://github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.0)
+[`v0.1.2` release](https://github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2)
 along with `SHA256SUMS`. Verify only the archive you downloaded; checking the
 whole checksum file requires all four platform archives to be present.
 
 ```sh
-archive=pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
+archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
 tar -xzf "$archive"
 ./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
@@ -76,7 +76,7 @@ Repeat `--module NAME` to override automatic discovery. Discovery supports top-l
 The composite Action runs entirely from the checked-out Action revision. It uses an optional preinstalled binary or builds this source with the runner's Go toolchain while `GOPROXY=off`; it does not download a package or binary. Pin the reviewed public-main commit that passed CI:
 
 ```yaml
-- uses: kentomk/pyft-wheel-gil-preflight@98b6960783c9d0423a543c12de796275414b1e32 # v0.1.0 public main
+- uses: kentomk/pyft-wheel-gil-preflight@e18442e45cbca86a04ab0607edeb28168c4464df # v0.1.1 public main
   with:
     wheel: dist/example-0.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl
     python: /opt/python/cp314t/bin/python
@@ -90,7 +90,7 @@ The composite Action runs entirely from the checked-out Action revision. It uses
 Releases provide reproducible archives for Linux and macOS on amd64 and arm64. Each archive contains the versioned `pyft-wheel-gil-preflight` binary, `README.md`, `LICENSE`, and `SECURITY.md`; `SHA256SUMS` covers all four archives.
 
 ```sh
-archive=pyft-wheel-gil-preflight_v0.1.0_linux_amd64.tar.gz
+archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
 tar -xzf "$archive"
 ./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
@@ -103,7 +103,7 @@ download without falsely requiring the other three platform archives.
 Source installation is also available:
 
 ```sh
-go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.0
+go install github.com/kentomk/pyft-wheel-gil-preflight/cmd/pyft-wheel-gil-preflight@v0.1.2
 ```
 
 The project has no runtime external Go modules. CI and the publisher gate verify the MIT license marker, full-SHA Action dependencies, tracked-source secret patterns, archive member allowlists, target build metadata, `CGO_ENABLED=0`, and the absence of embedded Go dependency modules. These checks reduce release mistakes; they are not a guarantee that arbitrary wheel imports are safe.

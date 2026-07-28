@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Align every first-screen, archive, source-install, and immutable Action
+  reference with the current distribution, and reject stale release references
+  in the publisher contract.
 - Fix the release-archive checksum instructions so one downloaded platform
   archive can be verified on Linux or macOS without requiring the other three
   archives.

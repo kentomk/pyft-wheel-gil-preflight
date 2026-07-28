@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: fix single-archive checksum verification"
+  .license == "MIT" and .commitMessage == "docs: align published install references"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -41,8 +41,12 @@ grep -q '60-second quick start' README.md
 grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
-grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.0' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@98b6960783c9d0423a543c12de796275414b1e32' README.md
+grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@e18442e45cbca86a04ab0607edeb28168c4464df' README.md
+if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
+  printf '%s\n' 'README contains a stale release reference' >&2
+  exit 1
+fi
 if grep -q 'FULL_COMMIT_SHA' README.md; then
   printf '%s\n' 'README still contains the Action SHA placeholder' >&2
   exit 1
