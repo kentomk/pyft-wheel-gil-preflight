@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: align published install references"
+  .license == "MIT" and .commitMessage == "docs: refresh immutable Action pin"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -42,7 +42,11 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@e18442e45cbca86a04ab0607edeb28168c4464df' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@b0c9fa14bacd0fbaa32b661e123199ff4a33fa85 # v0.1.2 public main' README.md
+if grep -Eq 'uses: kentomk/pyft-wheel-gil-preflight@[0-9a-f]{40} # v0\.1\.[01] public main' README.md; then
+  printf '%s\n' 'README Action example identifies a stale public release' >&2
+  exit 1
+fi
 if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
   printf '%s\n' 'README contains a stale release reference' >&2
   exit 1

@@ -1,5 +1,18 @@
 # pyft-wheel-gil-preflight status
 
+## 2026-07-29 maintenance
+
+- The due review verified the checksum and executable version from the public
+  `v0.1.2` Linux arm64 archive; public main CI remains successful and the
+  maintainer inbox is empty.
+- The README Action example still identified the older `v0.1.1` public-main
+  revision even though the install and archive paths had moved to `v0.1.2`.
+  It now pins successful public main
+  `b0c9fa14bacd0fbaa32b661e123199ff4a33fa85` and labels it `v0.1.2`.
+- The publisher contract now rejects both the old pin and a stale `v0.1.0` or
+  `v0.1.1` Action release label. No external adoption report was found, so the
+  project remains in trial/monitor rather than being promoted to adopted.
+
 ## Project metadata
 
 - Finding ID: `20260720T012824Z-0915`

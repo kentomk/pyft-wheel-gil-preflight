@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Refresh the immutable composite Action example to the successful `v0.1.2`
+  public-main revision and reject stale release labels in the publisher gate.
 - Align every first-screen, archive, source-install, and immutable Action
   reference with the current distribution, and reject stale release references
   in the publisher contract.
