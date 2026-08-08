@@ -289,6 +289,11 @@ Documentationは`CIBW_TEST_COMMAND`から`{wheel}`とfree-threaded interpreter�
   shellcheck, and publisher contract passed; public main remains at the older
   broker-observed SHA and has not been treated as updated.
 
+### 2026-08-08T20:00:00Z — runtime prerequisite qualification
+
+- The quickstart already failed closed for an invalid runtime, but the README placed the prerequisite explanation inside the execution section rather than making the first decision explicit.
+- Added a dedicated Runtime prerequisite section covering CPython 3.14t, `Py_GIL_DISABLED=1`, pre-import GIL state, exit `2`, and the fact that the check needs no wheel or network. Publisher regressions require the section and these conditions.
+
 ### 2026-07-27T20:25:00Z — single-archive checksum install repair
 
 - 全6 managed repositoryをbrokerで確認し、current main CIはすべてsuccess、open Issue／PRは0、latest release assetの欠落もなかった。

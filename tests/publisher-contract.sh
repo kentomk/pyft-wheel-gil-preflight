@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "fix: reject superseded Action revision"
+  .license == "MIT" and .commitMessage == "docs: clarify free-threaded runtime prerequisite"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -37,6 +37,12 @@ jq -e --slurpfile request publish-request.json '
 
 grep -Eq '^## Installation\b' README.md
 grep -Eq '^## Quick start\b' README.md
+grep -Eq '^## Runtime prerequisite\b' README.md
+grep -Fq 'Py_GIL_DISABLED=1' README.md
+grep -Fq 'returns exit ' README.md
+grep -Fq 'with one actionable message' README.md
+grep -Fq 'No wheel or' README.md
+grep -Fq 'network access is needed for this prerequisite check' README.md
 grep -q '60-second quick start' README.md
 grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md

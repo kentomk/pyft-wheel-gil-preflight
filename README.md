@@ -38,6 +38,15 @@ service token, or runtime network access.
 
 A `cp314t` wheel can build, install, and pass ordinary tests while an extension that omitted its free-threading declaration emits a warning and enables the GIL. The tool discovers native modules in an offline wheel, imports each one in a fresh free-threaded Python process, and returns a CI-friendly result.
 
+## Runtime prerequisite
+
+Use a CPython 3.14t executable with `Py_GIL_DISABLED=1` and the GIL already
+disabled before import. Run `scripts/quickstart.sh /path/to/python3.14t` as the
+first check: it validates the executable and runtime before creating the fixture
+wheel, and returns exit `2` with one actionable message when a regular CPython,
+an incompatible version, or a non-executable path is supplied. No wheel or
+network access is needed for this prerequisite check.
+
 ## Quick start
 
 This 60-second quick start requires Go 1.26+, a C compiler, and a free-threaded CPython 3.14 executable. The original fixture should produce the first useful diagnostic in under 60 seconds after the toolchain is available.
