@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: refresh immutable Action pin"
+  .license == "MIT" and .commitMessage == "test: track security release alignment"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -57,6 +57,11 @@ if grep -q 'FULL_COMMIT_SHA' README.md; then
 fi
 if grep -q 'After the first release' README.md; then
   printf '%s\n' 'README still describes the published project as unreleased' >&2
+  exit 1
+fi
+
+if grep -q 'No released version exists yet' SECURITY.md; then
+  printf '%s\n' 'SECURITY.md still describes the published project as unreleased' >&2
   exit 1
 fi
 grep -Eq 'uses: actions/checkout@[0-9a-f]{40}([[:space:]]|$)' .github/workflows/ci.yml

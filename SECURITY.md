@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes are developed on the current `main` branch. No released version exists yet.
+Security fixes are developed on the current `main` branch. The published release is available from the project README; verify its archive checksum before extraction and pin the reviewed Action commit when integrating it into CI.
 
 ## Untrusted wheel boundary
 
