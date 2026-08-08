@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Refresh the copy-ready composite Action to the current successful public-main revision and reject the superseded revision in the publisher contract.
+- Align the copy-ready Action pin with public main b60c403 and reject the superseded a1135efe revision.
 - Make the quick start fail early with a stable diagnostic when the supplied
   Python path is not executable or is not a free-threaded CPython 3.14 runtime.
 - Refresh the immutable composite Action example to the successful `v0.1.2`

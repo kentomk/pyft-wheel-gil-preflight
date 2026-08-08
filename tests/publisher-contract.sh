@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: clarify free-threaded runtime prerequisite"
+  .license == "MIT" and .commitMessage == "docs: align Action pin with public main"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -48,7 +48,11 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@a1135efe5afaac7aedae6438c19954bb78e28ffd # v0.1.2 public main' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@b60c403bf480af349037461101ed4a8faee1ee66 # v0.1.2 public main' README.md
+if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@a1135efe5afaac7aedae6438c19954bb78e28ffd' README.md; then
+  printf '%s\n' 'README Action example identifies a superseded public revision' >&2
+  exit 1
+fi
 if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@0ffdf269fede85d0ac9e1dcce8c57d4515664c1a' README.md; then
   printf '%s\n' 'README Action example identifies a stale public release' >&2
   exit 1
