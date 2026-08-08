@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Make the quick start fail early with a stable diagnostic when the supplied
+  Python path is not executable or is not a free-threaded CPython 3.14 runtime.
 - Refresh the immutable composite Action example to the successful `v0.1.2`
   public-main revision and reject stale release labels in the publisher gate.
 - Align every first-screen, archive, source-install, and immutable Action

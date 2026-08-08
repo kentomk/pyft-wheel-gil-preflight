@@ -46,6 +46,11 @@ This 60-second quick start requires Go 1.26+, a C compiler, and a free-threaded 
 scripts/quickstart.sh /path/to/python3.14t
 ```
 
+The quick start checks this prerequisite before compiling its fixture. If the
+path is not executable, is not CPython 3.14t, or starts with the GIL enabled,
+it exits `2` with one actionable diagnostic instead of failing later during
+fixture compilation.
+
 Expected result:
 
 ```text

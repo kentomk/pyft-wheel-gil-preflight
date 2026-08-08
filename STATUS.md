@@ -278,6 +278,17 @@ Documentationは`CIBW_TEST_COMMAND`から`{wheel}`とfree-threaded interpreter�
 
 ## Maintenance history
 
+### 2026-08-08T14:10:00Z — quickstart runtime preflight
+
+- Clean quickstart inspection found that an invalid or GIL-enabled Python path
+  failed later during fixture compilation without identifying the prerequisite.
+- Added an early executable, CPython 3.14, `Py_GIL_DISABLED`, and import-before-GIL
+  check with a stable exit-2 diagnostic, plus regression coverage for a missing
+  executable and the host's ordinary Python.
+- README and CHANGELOG now document the failure contract. Local quality gate,
+  shellcheck, and publisher contract passed; public main remains at the older
+  broker-observed SHA and has not been treated as updated.
+
 ### 2026-07-27T20:25:00Z — single-archive checksum install repair
 
 - 全6 managed repositoryをbrokerで確認し、current main CIはすべてsuccess、open Issue／PRは0、latest release assetの欠落もなかった。

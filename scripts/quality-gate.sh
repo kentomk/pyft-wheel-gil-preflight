@@ -14,6 +14,7 @@ fi
 if command -v actionlint >/dev/null 2>&1; then
   actionlint
 fi
+tests/quickstart-preflight.sh
 tests/package-release-smoke.sh
 tests/static-policy-smoke.sh
 
