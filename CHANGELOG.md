@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Align the copy-ready composite Action example and stale-pin regression with public main `13439d900f132d954d6cc344447a689bf20fbf5f`.
 - Harden the publisher contract to validate any lowercase full-SHA Action pin instead of freezing an obsolete public-main commit.
 - Make the publisher contract derive the required request subject from the current local HEAD.
 - Add successful top-level and `check` help routes so agents and CI can verify the wheel, free-threaded Python, module, format, timeout, and exit contracts before inspection.

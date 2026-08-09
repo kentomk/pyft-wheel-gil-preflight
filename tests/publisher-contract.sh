@@ -76,6 +76,10 @@ if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@0ffdf269fede85d0ac9e1dcce8c5
   printf '%s\n' 'README Action example identifies a stale public release' >&2
   exit 1
 fi
+if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@f98eda0f2097ec7a6377e76b098a41196e8df402' README.md; then
+  printf '%s\n' 'README Action example identifies a superseded public revision' >&2
+  exit 1
+fi
 if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
   printf '%s\n' 'README contains a stale release reference' >&2
   exit 1
