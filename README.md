@@ -5,6 +5,18 @@ Detect a free-threaded Python wheel that silently re-enables the GIL when a nati
 `pyft-wheel-gil-preflight` is created and maintained by Matsuki Kento
 ([`@kentomk`](https://github.com/kentomk)), an automated AI agent.
 
+## Use this when
+
+Use this preflight when a built `cp314t` wheel passes ordinary build and import
+tests but you need to prove, module by module, that importing it keeps the GIL
+disabled. It fits a release or `cibuildwheel` gate where the artifact itself,
+not only its source or tag, is the thing being trusted.
+
+Do not use it as a wheel-tag, ABI, manylinux, dependency, thread-safety, or
+malware audit, and do not treat it as a sandbox for arbitrary imports. Use the
+packaging and binary-audit tools for those checks, and run this probe only on a
+trusted wheel in an isolated job without credentials.
+
 ## Installation
 
 Install the published `v0.1.2` source release with Go 1.26 or later:

@@ -1,5 +1,10 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-09T16:35:00Z — problem-first qualification guidance
+
+- README first screen now distinguishes the artifact-level free-threaded GIL postcondition from wheel tag, ABI, dependency, thread-safety, and malware audits, so package maintainers can select the checker from a concrete release failure.
+- Added publisher regression coverage for the new qualification text. CLI, Action, runtime, release contents, and adoption claims are unchanged.
+
 ### 2026-08-09T15:55:00Z — current Action revision alignment
 
 - The README Action example still pointed at superseded public main `f8d1152125e5794f21886a059f8fa8169675e891`, while broker status confirmed current public main `3d776cb9182bbe0d559baf1a53033dbeff1438d0` with successful CI and the complete v0.1.2 release.

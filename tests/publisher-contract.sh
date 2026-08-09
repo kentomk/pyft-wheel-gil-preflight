@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: align Action example with current public main"
+  .license == "MIT" and .commitMessage == "docs: add artifact qualification guidance"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
