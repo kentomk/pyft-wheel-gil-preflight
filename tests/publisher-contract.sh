@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: align Action pin with current public main revision"
+  .license == "MIT" and .commitMessage == "docs: align Action example with current public main"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -48,7 +48,7 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@f8d1152125e5794f21886a059f8fa8169675e891 # v0.1.2 public main' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@3d776cb9182bbe0d559baf1a53033dbeff1438d0 # v0.1.2 public main' README.md
 if grep -q 'kentomk/pyft-wheel-gil-preflight@47b6d04cd5fb544a79f04385b77edfee79957e25' README.md; then
   printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
   exit 1

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Align the copy-ready composite Action example and publisher contract with the broker-verified public main revision `3d776cb9` for the published `v0.1.2` release.
+
 - Align the copy-ready immutable Action example and publisher regression with the current public main `f8d11521`.
 
 - Align the copy-ready immutable Action example and publisher regression with public main `c7d8ff68`.

@@ -1,5 +1,10 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-09T15:55:00Z — current Action revision alignment
+
+- The README Action example still pointed at superseded public main `f8d1152125e5794f21886a059f8fa8169675e891`, while broker status confirmed current public main `3d776cb9182bbe0d559baf1a53033dbeff1438d0` with successful CI and the complete v0.1.2 release.
+- Synchronized the copy-ready immutable Action pin, publisher contract, and publish request. Runtime behavior, release contents, and adoption claims are unchanged.
+
 ## 2026-07-29 maintenance
 
 - The due review verified the checksum and executable version from the public
