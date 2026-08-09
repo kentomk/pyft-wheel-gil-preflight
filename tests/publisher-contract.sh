@@ -48,7 +48,7 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@d3d56a87996297075fd53c973080b60a54a33bff # v0.1.2 public main' README.md
+grep -q 'kentomk/pyft-wheel-gil-preflight@c7d8ff6891776f697d0379c110263cbe6c4805dd # v0.1.2 public main' README.md
 if grep -q 'kentomk/pyft-wheel-gil-preflight@47b6d04cd5fb544a79f04385b77edfee79957e25' README.md; then
   printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
   exit 1

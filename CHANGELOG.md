@@ -1,5 +1,7 @@
 # Changelog
 
+- Align the copy-ready immutable Action example and publisher regression with public main `c7d8ff68`.
+
 ## Unreleased
 
 - Refresh the immutable Action example to public main `d3d56a87` and reject the superseded `47b6d04` pin in the publisher contract.

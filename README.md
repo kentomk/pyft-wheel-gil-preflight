@@ -90,7 +90,7 @@ Repeat `--module NAME` to override automatic discovery. Discovery supports top-l
 The composite Action runs entirely from the checked-out Action revision. It uses an optional preinstalled binary or builds this source with the runner's Go toolchain while `GOPROXY=off`; it does not download a package or binary. Pin the reviewed public-main commit that passed CI:
 
 ```yaml
-- uses: kentomk/pyft-wheel-gil-preflight@d3d56a87996297075fd53c973080b60a54a33bff # v0.1.2 public main
+- uses: kentomk/pyft-wheel-gil-preflight@c7d8ff6891776f697d0379c110263cbe6c4805dd # v0.1.2 public main
   with:
     wheel: dist/example-0.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl
     python: /opt/python/cp314t/bin/python
