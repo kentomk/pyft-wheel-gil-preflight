@@ -16,11 +16,33 @@ import (
 
 var version = "dev"
 
+const helpText = `pyft-wheel-gil-preflight checks whether importing native modules re-enables the GIL in free-threaded CPython.
+
+Usage:
+  pyft-wheel-gil-preflight check --wheel PATH --python PATH [options]
+  pyft-wheel-gil-preflight version
+  pyft-wheel-gil-preflight help
+
+Options:
+  --module NAME       native module to import; repeat to override discovery
+  --format text|json  output format (default text)
+  --timeout DURATION  module import timeout, 1ns through 60s (default 10s)
+
+Exit codes:
+  0  every checked module kept the GIL disabled
+  1  PGP001 detected GIL re-enablement
+  2  invalid arguments or an inspection failure
+`
+
 func main() {
 	os.Exit(run(os.Args[1:]))
 }
 
 func run(args []string) int {
+	if len(args) == 1 && (args[0] == "help" || args[0] == "--help" || args[0] == "-h") {
+		fmt.Print(helpText)
+		return 0
+	}
 	if len(args) == 1 && args[0] == "version" {
 		fmt.Printf("pyft-wheel-gil-preflight %s\n", version)
 		return 0
@@ -28,6 +50,10 @@ func run(args []string) int {
 	if len(args) == 0 || args[0] != "check" {
 		fmt.Fprintln(os.Stderr, "usage: pyft-wheel-gil-preflight check --wheel PATH --python PATH [--module NAME ...] [--format text|json] [--timeout 10s]")
 		return 2
+	}
+	if len(args) == 2 && (args[1] == "help" || args[1] == "--help" || args[1] == "-h") {
+		fmt.Print(helpText)
+		return 0
 	}
 
 	fs := flag.NewFlagSet("check", flag.ContinueOnError)

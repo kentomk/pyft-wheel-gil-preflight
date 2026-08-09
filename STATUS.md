@@ -304,6 +304,12 @@ Documentationは`CIBW_TEST_COMMAND`から`{wheel}`とfree-threaded interpreter�
 - The quickstart already failed closed for an invalid runtime, but the README placed the prerequisite explanation inside the execution section rather than making the first decision explicit.
 - Added a dedicated Runtime prerequisite section covering CPython 3.14t, `Py_GIL_DISABLED=1`, pre-import GIL state, exit `2`, and the fact that the check needs no wheel or network. Publisher regressions require the section and these conditions.
 
+### 2026-08-09T17:55:00Z — executable CLI help contract
+
+- Top-level and `check` help previously fell through to the usage error path, so a new agent or CI job could not verify the wheel, Python, module, format, timeout, or exit contract without supplying inspection inputs.
+- Added `help`, `--help`, and `-h` routes that print the contract to stdout and exit `0` before reading a wheel or starting Python; unknown commands and malformed checks retain exit `2`.
+- Added unit coverage, README examples, and publisher regressions. Runtime analysis, wheel scope, and security boundary are unchanged.
+
 ### 2026-07-27T20:25:00Z — single-archive checksum install repair
 
 - 全6 managed repositoryをbrokerで確認し、current main CIはすべてsuccess、open Issue／PRは0、latest release assetの欠落もなかった。

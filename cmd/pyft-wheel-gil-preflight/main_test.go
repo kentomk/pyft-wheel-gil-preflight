@@ -2,10 +2,26 @@ package main
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/kentomk/pyft-wheel-gil-preflight/internal/checker"
 )
+
+func TestHelpContract(t *testing.T) {
+	for _, args := range [][]string{{"help"}, {"--help"}, {"-h"}, {"check", "--help"}} {
+		t.Run(strings.Join(args, "-"), func(t *testing.T) {
+			if got := run(args); got != 0 {
+				t.Fatalf("run(%q) = %d, want 0", args, got)
+			}
+		})
+	}
+	for _, expected := range []string{"--wheel", "--python", "--module", "--format", "--timeout", "PGP001"} {
+		if !strings.Contains(helpText, expected) {
+			t.Fatalf("help is missing %q", expected)
+		}
+	}
+}
 
 func TestTextGoldenContracts(t *testing.T) {
 	tests := []struct {

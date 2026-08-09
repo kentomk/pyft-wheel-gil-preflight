@@ -83,10 +83,14 @@ Exit `1` means the postcondition failed. The script treats that expected result 
 ## Usage
 
 ```sh
+pyft-wheel-gil-preflight --help
+pyft-wheel-gil-preflight check --help
 go run ./cmd/pyft-wheel-gil-preflight check \
   --wheel dist/example-0.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl \
   --python /path/to/python3.14t
 ```
+
+Both help commands write the job, wheel/python inputs, module discovery, output formats, timeout bound, and exit contract to stdout and exit `0`; they do not inspect a wheel or start Python.
 
 - Exit `0`: the GIL was disabled before and after import.
 - Exit `1`: `PGP001` detected GIL re-enablement.

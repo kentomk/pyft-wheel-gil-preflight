@@ -25,7 +25,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "docs: add artifact qualification guidance"
+  .license == "MIT" and .commitMessage == "fix: add successful CLI help contract"
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -37,6 +37,8 @@ jq -e --slurpfile request publish-request.json '
 
 grep -Eq '^## Installation\b' README.md
 grep -Eq '^## Quick start\b' README.md
+grep -Fq 'pyft-wheel-gil-preflight --help' README.md
+grep -Fq 'check --help' README.md
 grep -Eq '^## Runtime prerequisite\b' README.md
 grep -Fq 'Py_GIL_DISABLED=1' README.md
 grep -Fq 'returns exit ' README.md
