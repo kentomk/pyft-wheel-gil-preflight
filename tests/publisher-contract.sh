@@ -3,8 +3,9 @@ set -euo pipefail
 
 project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
 cd "$project_root"
+expected_commit_message=$(git log -1 --format=%s)
 
-jq -e '
+jq -e --arg expected_commit_message "$expected_commit_message" '
   .schemaVersion == 2 and .action == "update" and .owner == "kentomk" and
   .name == "pyft-wheel-gil-preflight" and
   (.description | type == "string" and length >= 20 and length <= 160) and
@@ -25,7 +26,7 @@ jq -e '
     .tested == true and (.gap | length >= 10 and length <= 1000))) and
   .duplicateSearch.completed == true and (.duplicateSearch.summary | length >= 20) and
   (.differentiation | length >= 20) and .testCommand == "scripts/publisher-gate.sh" and
-  .license == "MIT" and .commitMessage == "fix: add successful CLI help contract"
+  .license == "MIT" and .commitMessage == $expected_commit_message
 ' publish-request.json >/dev/null
 
 jq -e --slurpfile request publish-request.json '
@@ -50,7 +51,15 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-grep -q 'kentomk/pyft-wheel-gil-preflight@3d776cb9182bbe0d559baf1a53033dbeff1438d0 # v0.1.2 public main' README.md
+action_ref=$(grep -oE 'kentomk/pyft-wheel-gil-preflight@[0-9a-f]{40}' README.md | head -n 1 | cut -d@ -f2)
+[[ "$action_ref" =~ ^[0-9a-f]{40}$ ]] || {
+  printf '%s\n' 'publisher contract: README must pin the Action to a lowercase full commit SHA' >&2
+  exit 1
+}
+if grep -q 'kentomk/pyft-wheel-gil-preflight@3d776cb9182bbe0d559baf1a53033dbeff1438d0' README.md; then
+  printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
+  exit 1
+fi
 if grep -q 'kentomk/pyft-wheel-gil-preflight@47b6d04cd5fb544a79f04385b77edfee79957e25' README.md; then
   printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
   exit 1
