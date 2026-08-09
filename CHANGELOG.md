@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Refresh the immutable Action example to public main `d3d56a87` and reject the superseded `47b6d04` pin in the publisher contract.
 - Refresh the immutable Action example to the current successful public-main revision and reject the superseded pin.
 - Refresh the copy-ready composite Action to the current successful public-main revision and reject the superseded revision in the publisher contract.
 - Refresh the immutable Action example to public main `420b2d3` and reject the prior `b60c403` pin in the publisher contract.
