@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Require exactly one selected archive row in the Linux and macOS SHA256SUMS verification examples, rejecting missing or duplicate rows before extraction.
+
 - Pin the copy-ready composite Action to the immutable v0.1.2 release revision instead of moving public main, preventing routine maintenance commits from invalidating the documented integration.
 
 - Align the copy-ready composite Action example and stale-pin regression with public main `13439d900f132d954d6cc344447a689bf20fbf5f`.

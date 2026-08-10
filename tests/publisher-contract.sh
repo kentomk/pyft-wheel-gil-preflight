@@ -51,6 +51,11 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
+grep -Fq "checksum_matches=\$(grep -Ec" README.md
+grep -Fq "test \"\$checksum_matches\" -eq 1" README.md
+# shellcheck disable=SC2016
+checksum_pattern='grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS'
+grep -Fq "$checksum_pattern" README.md
 grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@aa3c88484d9642f4ed8d3a38a5a1aa5d497fa458 # v0.1.2 release revision' README.md
 if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
   printf '%s\n' 'README contains a stale release reference' >&2

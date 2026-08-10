@@ -1,5 +1,11 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-10T02:55:00Z — strict selected-archive checksum documentation
+
+- The Linux and macOS archive verification examples previously filtered by filename and passed every matching row to the checksum tool, so missing or duplicate selected-archive entries were not rejected as a distinct manifest-contract failure.
+- Added an exact-one-row check to both platform examples and a publisher-contract regression for the command shape. Wheel inspection, free-threaded runtime checks, release assets, and adoption claims are unchanged.
+- The local change requires broker publication and public main CI confirmation before this maintenance result counts as public.
+
 ### 2026-08-10T00:47:00Z — stabilize Action distribution pin
 
 - Replaced the README Action pin to moving public main with the immutable commit included in the published v0.1.2 release (`aa3c88484d9642f4ed8d3a38a5a1aa5d497fa458`).

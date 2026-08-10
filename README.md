@@ -32,7 +32,9 @@ whole checksum file requires all four platform archives to be present.
 
 ```sh
 archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
-grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
+test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
+grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
 tar -xzf "$archive"
 ./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
 ```
@@ -40,7 +42,9 @@ tar -xzf "$archive"
 On macOS, replace the verification command with:
 
 ```sh
-grep "  ${archive}$" SHA256SUMS | shasum -a 256 --check -
+checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
+test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
+grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | shasum -a 256 --check -
 ```
 
 The checker has no runtime external Go modules and needs no registry account,
@@ -121,7 +125,9 @@ Releases provide reproducible archives for Linux and macOS on amd64 and arm64. E
 
 ```sh
 archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
-grep "  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
+test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
+grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
 tar -xzf "$archive"
 ./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
 ```
