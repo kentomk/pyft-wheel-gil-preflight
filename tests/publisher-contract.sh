@@ -59,6 +59,8 @@ grep -Fq "$checksum_pattern" README.md
 grep -Fq "extract_dir=\$(mktemp -d)" README.md
 grep -Fq "tar -xzf \"\$archive\" -C \"\$extract_dir\"" README.md
 grep -Fq "trap 'rm -rf \"\$extract_dir\"' EXIT HUP INT TERM" README.md
+grep -Fq "unsafe_member=\$(tar -tzf \"\$archive\" | grep -E '(^/|(^|/)\\.\\.(\\/|$))' || true)" README.md
+grep -Fq "test -z \"\$unsafe_member\" || { echo 'archive contains an unsafe member path' >&2; exit 2; }" README.md
 grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@aa3c88484d9642f4ed8d3a38a5a1aa5d497fa458 # v0.1.2 release revision' README.md
 if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
   printf '%s\n' 'README contains a stale release reference' >&2
