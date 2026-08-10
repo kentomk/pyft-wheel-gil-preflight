@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Require the extracted archive binary to be a regular non-symlink file in the
+  copy-ready verification examples, with publisher-contract coverage for the
+  fail-closed boundary.
+
 - Require exactly one selected archive row in the Linux and macOS SHA256SUMS verification examples, rejecting missing or duplicate rows before extraction.
 
 - Pin the copy-ready composite Action to the immutable v0.1.2 release revision instead of moving public main, preventing routine maintenance commits from invalidating the documented integration.

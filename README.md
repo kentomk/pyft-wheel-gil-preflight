@@ -40,7 +40,9 @@ test -z "$unsafe_member" || { echo 'archive contains an unsafe member path' >&2;
 extract_dir=$(mktemp -d)
 trap 'rm -rf "$extract_dir"' EXIT HUP INT TERM
 tar -xzf "$archive" -C "$extract_dir"
-"$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight" version
+expected_binary="$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight"
+test -f "$expected_binary" && test ! -L "$expected_binary" || { echo 'archive binary is not a regular file' >&2; exit 2; }
+"$expected_binary" version
 ```
 
 On macOS, replace the verification command with:
@@ -137,7 +139,9 @@ grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict 
 extract_dir=$(mktemp -d)
 trap 'rm -rf "$extract_dir"' EXIT HUP INT TERM
 tar -xzf "$archive" -C "$extract_dir"
-"$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight" version
+expected_binary="$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight"
+test -f "$expected_binary" && test ! -L "$expected_binary" || { echo 'archive binary is not a regular file' >&2; exit 2; }
+"$expected_binary" version
 ```
 
 Use `shasum -a 256 --check -` instead of `sha256sum --check --strict -` on

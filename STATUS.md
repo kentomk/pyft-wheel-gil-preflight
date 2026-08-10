@@ -1,5 +1,10 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-10T10:40:00Z — reject symlink archive payloads before use
+
+- The standalone and release-archive verification examples now require the extracted `pyft-wheel-gil-preflight` binary to be a regular non-symlink file before the version check.
+- Added publisher-contract coverage for the regular-file boundary. Wheel inspection, free-threaded runtime checks, release assets, and adoption claims are unchanged. Local quality and broker publication are required before this maintenance is counted as public.
+
 ### 2026-08-10T04:40:00Z — staged archive verification extraction
 
 - The README archive examples now extract checksum-verified archives into a temporary directory and clean it on exit before running the version check. This keeps a failed or interrupted verification from leaving release contents in the caller's working directory.

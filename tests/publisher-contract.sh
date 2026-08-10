@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2016
 set -euo pipefail
 
 project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
@@ -58,6 +59,8 @@ checksum_pattern='grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS'
 grep -Fq "$checksum_pattern" README.md
 grep -Fq "extract_dir=\$(mktemp -d)" README.md
 grep -Fq "tar -xzf \"\$archive\" -C \"\$extract_dir\"" README.md
+grep -Fq 'expected_binary="$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight"' README.md
+grep -Fq 'test -f "$expected_binary" && test ! -L "$expected_binary"' README.md
 grep -Fq "trap 'rm -rf \"\$extract_dir\"' EXIT HUP INT TERM" README.md
 grep -Fq "unsafe_member=\$(tar -tzf \"\$archive\" | grep -E '(^/|(^|/)\\.\\.(\\/|$))' || true)" README.md
 grep -Fq "test -z \"\$unsafe_member\" || { echo 'archive contains an unsafe member path' >&2; exit 2; }" README.md
