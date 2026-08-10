@@ -51,35 +51,7 @@ grep -q 'Matsuki Kento' README.md
 grep -q '@kentomk' README.md
 grep -Eiq 'AI|automated' README.md
 grep -q 'github.com/kentomk/pyft-wheel-gil-preflight/releases/tag/v0.1.2' README.md
-action_ref=$(grep -oE 'kentomk/pyft-wheel-gil-preflight@[0-9a-f]{40}' README.md | head -n 1 | cut -d@ -f2)
-[[ "$action_ref" =~ ^[0-9a-f]{40}$ ]] || {
-  printf '%s\n' 'publisher contract: README must pin the Action to a lowercase full commit SHA' >&2
-  exit 1
-}
-if grep -q 'kentomk/pyft-wheel-gil-preflight@3d776cb9182bbe0d559baf1a53033dbeff1438d0' README.md; then
-  printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
-  exit 1
-fi
-if grep -q 'kentomk/pyft-wheel-gil-preflight@47b6d04cd5fb544a79f04385b77edfee79957e25' README.md; then
-  printf '%s\n' 'publisher contract: README still pins the superseded public Action revision' >&2
-  exit 1
-fi
-if grep -q 'kentomk/pyft-wheel-gil-preflight@420b2d3e57319588c78e9ea439dcb588a82571f1' README.md; then
-  printf '%s\n' 'README Action example identifies a superseded public revision' >&2
-  exit 1
-fi
-if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@a1135efe5afaac7aedae6438c19954bb78e28ffd' README.md; then
-  printf '%s\n' 'README Action example identifies a superseded public revision' >&2
-  exit 1
-fi
-if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@0ffdf269fede85d0ac9e1dcce8c57d4515664c1a' README.md; then
-  printf '%s\n' 'README Action example identifies a stale public release' >&2
-  exit 1
-fi
-if grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@f98eda0f2097ec7a6377e76b098a41196e8df402' README.md; then
-  printf '%s\n' 'README Action example identifies a superseded public revision' >&2
-  exit 1
-fi
+grep -Fq 'uses: kentomk/pyft-wheel-gil-preflight@aa3c88484d9642f4ed8d3a38a5a1aa5d497fa458 # v0.1.2 release revision' README.md
 if grep -Eq 'pyft-wheel-gil-preflight(@|_v|/releases/tag/)v0\.1\.[01]' README.md; then
   printf '%s\n' 'README contains a stale release reference' >&2
   exit 1

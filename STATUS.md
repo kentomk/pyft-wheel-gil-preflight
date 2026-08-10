@@ -1,5 +1,10 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-10T00:47:00Z — stabilize Action distribution pin
+
+- Replaced the README Action pin to moving public main with the immutable commit included in the published v0.1.2 release (`aa3c88484d9642f4ed8d3a38a5a1aa5d497fa458`).
+- Updated the publisher regression and English guidance to enforce the release-bound revision. Routine maintenance commits can now update main without another stale-pin repair; a future release is the explicit update point.
+
 ### 2026-08-09T16:35:00Z — problem-first qualification guidance
 
 - README first screen now distinguishes the artifact-level free-threaded GIL postcondition from wheel tag, ABI, dependency, thread-safety, and malware audits, so package maintainers can select the checker from a concrete release failure.

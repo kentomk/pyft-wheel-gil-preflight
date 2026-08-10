@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Pin the copy-ready composite Action to the immutable v0.1.2 release revision instead of moving public main, preventing routine maintenance commits from invalidating the documented integration.
+
 - Align the copy-ready composite Action example and stale-pin regression with public main `13439d900f132d954d6cc344447a689bf20fbf5f`.
 - Harden the publisher contract to validate any lowercase full-SHA Action pin instead of freezing an obsolete public-main commit.
 - Make the publisher contract derive the required request subject from the current local HEAD.
