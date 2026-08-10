@@ -1,5 +1,10 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-10T04:40:00Z — staged archive verification extraction
+
+- The README archive examples now extract checksum-verified archives into a temporary directory and clean it on exit before running the version check. This keeps a failed or interrupted verification from leaving release contents in the caller's working directory.
+- Added publisher-contract coverage for the temporary extraction and cleanup boundary. The local change requires publisher gate, broker publication, and public main CI confirmation before it counts as public maintenance.
+
 ### 2026-08-10T02:55:00Z — strict selected-archive checksum documentation
 
 - The Linux and macOS archive verification examples previously filtered by filename and passed every matching row to the checksum tool, so missing or duplicate selected-archive entries were not rejected as a distinct manifest-contract failure.

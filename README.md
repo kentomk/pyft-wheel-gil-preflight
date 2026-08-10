@@ -35,8 +35,10 @@ archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
 test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
 grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
-tar -xzf "$archive"
-./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
+extract_dir=$(mktemp -d)
+trap 'rm -rf "$extract_dir"' EXIT HUP INT TERM
+tar -xzf "$archive" -C "$extract_dir"
+"$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight" version
 ```
 
 On macOS, replace the verification command with:
@@ -128,8 +130,10 @@ archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
 test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
 grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
-tar -xzf "$archive"
-./"${archive%.tar.gz}"/pyft-wheel-gil-preflight version
+extract_dir=$(mktemp -d)
+trap 'rm -rf "$extract_dir"' EXIT HUP INT TERM
+tar -xzf "$archive" -C "$extract_dir"
+"$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight" version
 ```
 
 Use `shasum -a 256 --check -` instead of `sha256sum --check --strict -` on

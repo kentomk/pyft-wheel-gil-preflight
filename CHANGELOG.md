@@ -50,3 +50,6 @@
 - Add original bad/good C extension fixtures, English documentation, CI, and quality checks.
 - Discover top-level, nested, and leading-underscore native modules and inspect each in a fresh process.
 - Bound child output and clean Linux/macOS process groups across timeout, signal, descendant, and import failures.
+## Unreleased
+
+- Stage checksum-verified archive extraction in a temporary directory for the installation and release examples, preventing workspace pollution during version checks.
