@@ -34,7 +34,15 @@ whole checksum file requires all four platform archives to be present.
 archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
 test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
-grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+if command -v sha256sum >/dev/null 2>&1; then
+  checksum_tool='sha256sum --check --strict -'
+elif command -v shasum >/dev/null 2>&1; then
+  checksum_tool='shasum -a 256 --check -'
+else
+  echo 'need sha256sum or shasum for checksum verification' >&2
+  exit 2
+fi
+grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sh -c "$checksum_tool"
 unsafe_member=$(tar -tzf "$archive" | grep -E '(^/|(^|/)\.\.(\/|$))' || true)
 test -z "$unsafe_member" || { echo 'archive contains an unsafe member path' >&2; exit 2; }
 extract_dir=$(mktemp -d)
@@ -135,7 +143,15 @@ Releases provide reproducible archives for Linux and macOS on amd64 and arm64. E
 archive=pyft-wheel-gil-preflight_v0.1.2_linux_amd64.tar.gz
 checksum_matches=$(grep -Ec "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS || true)
 test "$checksum_matches" -eq 1 || { echo "expected exactly one checksum row for $archive" >&2; exit 2; }
-grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sha256sum --check --strict -
+if command -v sha256sum >/dev/null 2>&1; then
+  checksum_tool='sha256sum --check --strict -'
+elif command -v shasum >/dev/null 2>&1; then
+  checksum_tool='shasum -a 256 --check -'
+else
+  echo 'need sha256sum or shasum for checksum verification' >&2
+  exit 2
+fi
+grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS | sh -c "$checksum_tool"
 extract_dir=$(mktemp -d)
 trap 'rm -rf "$extract_dir"' EXIT HUP INT TERM
 tar -xzf "$archive" -C "$extract_dir"
@@ -144,8 +160,8 @@ test -f "$expected_binary" && test ! -L "$expected_binary" || { echo 'archive bi
 "$expected_binary" version
 ```
 
-Use `shasum -a 256 --check -` instead of `sha256sum --check --strict -` on
-macOS. Filtering the checksum manifest is intentional: it verifies one
+The examples select `sha256sum` on Linux or `shasum -a 256` on macOS and fail
+closed if neither verifier is available. Filtering the checksum manifest is intentional: it verifies one
 download without falsely requiring the other three platform archives.
 
 Source installation is also available:

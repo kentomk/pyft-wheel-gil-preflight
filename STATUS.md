@@ -1,5 +1,14 @@
 # pyft-wheel-gil-preflight status
 
+### 2026-08-10T13:30:00Z — make archive checksum verification portable
+
+- The standalone and release-archive examples now select `sha256sum` or
+  `shasum -a 256` at runtime and fail closed when neither verifier is
+  available, covering both intended Linux and macOS users.
+- Added publisher-contract coverage for both portable selector blocks;
+  wheel inspection, free-threaded runtime checks, release assets, and
+  adoption claims are unchanged.
+
 ### 2026-08-10T10:40:00Z — reject symlink archive payloads before use
 
 - The standalone and release-archive verification examples now require the extracted `pyft-wheel-gil-preflight` binary to be a regular non-symlink file before the version check.

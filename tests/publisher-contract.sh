@@ -57,6 +57,11 @@ grep -Fq "test \"\$checksum_matches\" -eq 1" README.md
 # shellcheck disable=SC2016
 checksum_pattern='grep -E "^[0-9a-fA-F]{64}  ${archive}$" SHA256SUMS'
 grep -Fq "$checksum_pattern" README.md
+portable_checksum_selectors=$(grep -Fc "checksum_tool='sha256sum --check --strict -'" README.md)
+test "$portable_checksum_selectors" -ge 2
+grep -Fq "checksum_tool='shasum -a 256 --check -'" README.md
+grep -Fq "need sha256sum or shasum for checksum verification" README.md
+grep -Fq 'sh -c "$checksum_tool"' README.md
 grep -Fq "extract_dir=\$(mktemp -d)" README.md
 grep -Fq "tar -xzf \"\$archive\" -C \"\$extract_dir\"" README.md
 grep -Fq 'expected_binary="$extract_dir/${archive%.tar.gz}/pyft-wheel-gil-preflight"' README.md
